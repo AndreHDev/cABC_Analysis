@@ -1,7 +1,7 @@
 cABCanalysis
 =============
 
-R implementation of the computed ABC Analysis for rational selection of the most informative variables.
+R implementation of the computed ABC Analysis for rational selection of the most informative variables. Features caclulation using monotonic splines, edge-case handling (see details [here](https://github.com/AndreHDev/cABC_Analysis/blob/main/R/cABC_special_cases.R), base R plots as well as GGPLots.
 
 <img width="1072" height="602" alt="cABCExample" src="https://github.com/user-attachments/assets/9612fb9b-6ba9-487d-8235-f6dfb4c6791f" />
 
