@@ -1,0 +1,17 @@
+# Ignore Python bytecode and caches
+__pycache__/
+*.py[cod]
+
+# Ignore virtual environments
+venv/
+.venv/
+
+# Optional caches
+.pytest_cache/
+.mypy_cache/
+
+# Ignore local test runner
+python/test.py
+.Rproj.user
+
+.Rhistory
