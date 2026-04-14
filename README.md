@@ -1,7 +1,9 @@
 cABCanalysis
 =============
 
-Computed ABC Analysis tools (R and Python) for rational selection of the most informative variables.
+Computed ABC Analysis tool for rational selection of the most informative variables.
+
+<img width="1072" height="602" alt="cABCExample" src="https://github.com/user-attachments/assets/9612fb9b-6ba9-487d-8235-f6dfb4c6791f" />
 
 Install R package
 -----------------
