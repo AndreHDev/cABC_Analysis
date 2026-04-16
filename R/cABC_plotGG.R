@@ -56,16 +56,24 @@ cABC_plotGG <- function(CurveData, CleanData, Boundaries, Set_counts, x_vals, y_
                        name = 'fraction of data') +
     ggplot2::scale_y_continuous(expand = c(0, 0), limits = c(0, 1),
                        name = 'fraction of sum of largest data') +
+    ggplot2::coord_cartesian(
+      xlim = c(0, 1),
+      ylim = c(0, 1),
+      expand = FALSE
+    ) +
     ggplot2::coord_fixed(ratio = 1) +
     ggplot2::labs(title = Plot_title)
   
   # Add uniform curve if requested
   if(ShowUniform) {
     uniform_df <- data.frame(x = p_unif, y = ABC_uniform)
+    # Clip values to 0 and 1
+    uniform_df$x <- pmin(pmax(uniform_df$x, 0), 1)
+    uniform_df$y <- pmin(pmax(uniform_df$y, 0), 1)
     p <- p + ggplot2::geom_line(data = uniform_df, ggplot2::aes(x = x, y = y), 
                        color = 'green', linewidth = 1)
   }
-  
+
   # Identity line
   p <- p + ggplot2::geom_line(data = data.frame(x = c(0, 1), y = c(0, 1)),
                               ggplot2::aes(x = x, y = y), color = colors()[452], linewidth = 0.1)
