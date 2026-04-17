@@ -75,7 +75,6 @@
 #' Bgroup <- SwissInhabitants[B]
 #' Cgroup <- SwissInhabitants[C]
 #'
-#'
 #' @author André Himmelspach (01/2026)
 #' @export
 cABC_analysis <- function(Data, PlotIt=FALSE, useGGPlot=TRUE) {
