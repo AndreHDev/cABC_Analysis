@@ -84,6 +84,59 @@ cABC_handle_specials <- function(Data) {
   return(NULL)
 }
 
+#' Post-process ABC Classes to Resolve Boundary Duplicates
+#'
+#' After the initial class assignment in \code{cABC_analysis}, it is possible
+#' for data points with the same value to be split across two or even all three
+#' classes (A, B, C) because the geometric boundary cuts through a run of
+#' identical values. This function detects such duplicates and consolidates all
+#' occurrences of an ambiguous value into a single class using a deterministic
+#' tie-breaking strategy.
+#'
+#' \strong{Tie-breaking rules:}
+#' \enumerate{
+#'   \item The class that contains the \emph{most} occurrences of the duplicate
+#'     value wins outright.
+#'   \item If all three classes are tied, the duplicate value is compared to
+#'     both boundary limits. It is assigned to whichever boundary
+#'     (\code{ABLimit} or \code{BCLimit}) it is closest to, then placed in the
+#'     class above that boundary (i.e. closer to AB → A if \code{dup_val >=
+#'     ABLimit}, else B; closer to BC → B if \code{dup_val >= BCLimit}, else
+#'     C). If equidistant from both boundaries it is assigned to B.
+#'   \item If exactly two classes are tied, the pair determines the rule:
+#'     \itemize{
+#'       \item \strong{A vs B}: compare to \code{ABLimit}; \code{>= ABLimit}
+#'         → A, otherwise → B.
+#'       \item \strong{B vs C}: compare to \code{BCLimit}; \code{>= BCLimit}
+#'         → B, otherwise → C.
+#'       \item \strong{A vs C}: always assign to A, since the value was already
+#'         deemed important enough to appear in the top class.
+#'     }
+#' }
+#'
+#' A warning is issued whenever at least one duplicate boundary value is found,
+#' prompting the user to inspect the data and the ABC plot.
+#'
+#' @param Aind Integer vector of indices currently assigned to Class A.
+#' @param Bind Integer vector of indices currently assigned to Class B.
+#' @param Cind Integer vector of indices currently assigned to Class C.
+#' @param Data Named numeric vector of the (unsorted) input data, as cleaned by
+#'   \code{cABC_analysis}.
+#' @param sorted_data Numeric vector; \code{Data} sorted in decreasing order
+#'   (used internally for boundary reference).
+#' @param ABLimit Numeric scalar; the data value closest to the A/B boundary
+#'   threshold (as computed in \code{cABC_analysis}).
+#' @param BCLimit Numeric scalar; the data value closest to the B/C boundary
+#'   threshold (as computed in \code{cABC_analysis}).
+#'
+#' @return A named list with three elements:
+#' \describe{
+#'   \item{Aind}{Sorted integer vector of indices for Class A after deduplication.}
+#'   \item{Bind}{Sorted integer vector of indices for Class B after deduplication.}
+#'   \item{Cind}{Sorted integer vector of indices for Class C after deduplication.}
+#' }
+#'
+#' @noRd
 cABC_postprocess_classes <- function(Aind, Bind, Cind, Data, sorted_data, ABLimit , BCLimit) {
   # === Handle duplicates across class boundaries ===
   A_values <- Data[Aind]

@@ -1,6 +1,6 @@
 #' cABC Curve Computation
 #'
-#' Computes ABC curve (cumulative effort vs yield) with spline interpolation and derivatives.
+#' Computes ABC curve (cumulative effort vs yield) with hyman spline interpolation and derivatives.
 #' 
 #' @importFrom stats spline splinefun
 #' @importFrom utils head tail
@@ -9,14 +9,9 @@
 #' @param p Optional x-values for spline interpolation. Default: finer grid for large datasets.
 #'
 #' @return List containing:
-#'   Curve: Data frame with Effor (x) and Yield (y) of interpolated curve
-#'   Slope: Data frame with p (x-values) and dABC (first derivative)
+#'   Curve: Data frame with Effort (x) and Yield (y) of interpolated curve
+#'   Slope: Data frame with p (x-values) and cABC (first derivative)
 #' 
-#' @author: MT 11/2014
-#' 1.Editor: MT 01/2015
-#' 2.Editor: FL
-#' 3.Editor: MT 11/2017: Doku neu
-#' 4.Editor: AH 01/2026: Refactor, Spline changed to hyman for monotone property
 #' @noRd
 cABC_curve <- function(Data, p) {
   
@@ -50,6 +45,7 @@ cABC_curve <- function(Data, p) {
   }
   
   # Spline interpolation (using splinefun from stats)
+  # Use hyman as monotone spline
   V <- spline(x, y, xout = p, method = "hyman")
   Effort <- V$x
   Yield <- V$y
