@@ -4,14 +4,13 @@
 #' ABC analysis. The classification is based on geometric properties
 #' of the ABC curve and identifies regions of high, balanced, and
 #' low efficiency.
-#'
 #' Class interpretation:
-#' \describe{
-#'   \item{A}{Low effort, high yield (Pareto items)}
-#'   \item{B}{Balanced effort and yield}
-#'   \item{C}{High effort, low yield (submarginal items)}
+#' \tabular{ll}{
+#'   A: \tab Low effort, high yield (Pareto items) \cr
+#'   B: \tab Balanced effort and yield \cr
+#'   C: \tab High effort, low yield (submarginal items)
 #' }
-#'
+#' 
 #' @param Data Positive numeric vector which is not uniformly distributed.
 #'   If matrix or dataframe then the first column will be used.
 #'
@@ -56,10 +55,9 @@
 #' 
 #' @details
 #' Data cleaning: Before classification, non-numeric values and
-#' \code{NA}s are coerced to \code{0}, negative values are set to \code{0},
-#' and all zero/non-positive values are excluded. A warning is issued when
-#' items are dropped. If a matrix or data frame is supplied, only the first
-#' column is used.
+#' \code{NA}s are coerced to \code{0}, negative values are set to \code{0}.
+#' A warning is issued when items are dropped. If a matrix or data frame is 
+#' supplied, only the first column is used.
 #'
 #' Degenerate inputs (single point, all-identical values, very small datasets)
 #' are caught before curve fitting — see \code{\link{cABC_handle_specials}} for
@@ -78,7 +76,7 @@
 #' Cgroup <- SwissInhabitants[C]
 #'
 #'
-#' @author AH (01/2026)
+#' @author André Himmelspach (01/2026)
 #' @export
 cABC_analysis <- function(Data, PlotIt=FALSE, useGGPlot=TRUE) {
   
@@ -107,7 +105,7 @@ cABC_analysis <- function(Data, PlotIt=FALSE, useGGPlot=TRUE) {
   if(n_used == 0) stop("No positive values remain after cleaning")
   
   if(n_used < n_original) {
-    warning(sprintf('Only %d of %d items are positive.', n_used, n_original))
+    warning(sprintf('Only %d of %d items are largen then 0.', n_used, n_original))
   }
   
   # PRESERVE NAMES

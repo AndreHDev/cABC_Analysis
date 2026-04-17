@@ -4,48 +4,88 @@
 \alias{cABC_analysis}
 \title{ABC Classification}
 \usage{
-cABC_analysis(Data, ABCcurvedata, PlotIt = FALSE, useGGPlot = TRUE)
+cABC_analysis(Data, PlotIt = FALSE, useGGPlot = TRUE)
 }
 \arguments{
 \item{Data}{Positive numeric vector which is not uniformly distributed.
 If matrix or dataframe then the first column will be used.}
 
-\item{ABCcurvedata}{Legacy: only for internal usage, Optional list returned by 
-ABCcurve(), containing the interpolated ABC curve.}
+\item{PlotIt}{Logical. If \code{TRUE}, an ABC plot is generated.}
 
-\item{PlotIt}{Logical. If TRUE, an ABC plot is generated.}
-
-\item{useGGPlot}{Logical, default TRUE. Sets if base R or gg plot should be used}
+\item{useGGPlot}{Logical, default \code{TRUE}. If \code{TRUE} a ggplot2
+plot is produced; if \code{FALSE} a base-R plot is produced. Only
+relevant when \code{PlotIt = TRUE}.}
 }
 \value{
-A list containing: 
- Aind, Bind, Cind: Indices of the items partitioned into classes A, B, and C.
-   If the A class is empty, the B class is set as the A class.
- ABexchanged: Logical; TRUE if the Pareto point and Break-even point were 
-   swapped to maintain coordinate logic.
- A, B, C: The c(x, y) coordinates for the Pareto point (A), 
-   the Break-even point (B), and the Submarginal point (C).
- smallestAData: The cumulative yield at the boundary of Class A.
- smallestBData: The cumulative yield at the boundary of Class B.
- AlimitIndInInterpolation: The index of the A boundary in the [p, ABC] curve.
- BlimitIndInInterpolation: The index of the C boundary in the [p, ABC] curve.
- p: Numeric vector of the effort (x-axis) of the interpolation curve.
- ABC: Numeric vector of the yield (y-axis) of the interpolation curve.
- ABLimit: The data point closes to the value threshold separating Class A from Class B.
- BCLimit: The data point closes to the value threshold separating Class B from Class C.
+A list containing:
+\describe{
+  \item{Aind, Bind, Cind}{Integer vectors of indices (into the original
+    \code{Data}) for items assigned to classes A, B, and C respectively.
+    In special-case returns (single point or all-identical), only
+    \code{Aind} is populated; \code{Bind} and \code{Cind} are
+    \code{integer(0)}.}
+  \item{ABexchanged}{Logical; \code{TRUE} if the Pareto point and
+    Break-even point were swapped to maintain coordinate logic (i.e. the
+    Break-even point was to the left of the Pareto point on the curve).}
+  \item{A, B, C}{\code{c(x, y)} coordinates for the Pareto point (A),
+    the Break-even point (B), and the Submarginal point (C).
+    \code{NULL} in special-case returns.}
+  \item{smallestAData}{Cumulative yield at the boundary of Class A.
+    \code{NULL} in special-case returns.}
+  \item{smallestBData}{Cumulative yield at the boundary of Class B.
+    \code{NULL} in special-case returns.}
+  \item{AlimitIndInInterpolation}{Index of the A boundary in the
+    interpolated \code{[p, ABC]} curve. \code{NULL} in special-case
+    returns.}
+  \item{BlimitIndInInterpolation}{Index of the C boundary in the
+    interpolated \code{[p, ABC]} curve. \code{NULL} in special-case
+    returns.}
+  \item{p}{Numeric vector of effort values (x-axis) of the interpolation
+    curve. \code{NULL} in special-case returns.}
+  \item{ABC}{Numeric vector of yield values (y-axis) of the interpolation
+    curve. \code{NULL} in special-case returns.}
+  \item{ABLimit}{Data value closest to the threshold separating Class A
+    from Class B. \code{NULL} in special-case returns.}
+  \item{BCLimit}{Data value closest to the threshold separating Class B
+    from Class C. \code{NULL} in special-case returns.}
+}
 }
 \description{
 Divides a numeric dataset into three classes (A, B, and C) using
 ABC analysis. The classification is based on geometric properties
 of the ABC curve and identifies regions of high, balanced, and
 low efficiency.
+Class interpretation:
+\tabular{ll}{
+  A: \tab Low effort, high yield (Pareto items) \cr
+  B: \tab Balanced effort and yield \cr
+  C: \tab High effort, low yield (submarginal items)
+}
 }
 \details{
-Class interpretation:
-A = low effort, high yield 
-B = balanced effort and yield
-C = high effort, low yield
+Data cleaning: Before classification, non-numeric values and
+\code{NA}s are coerced to \code{0}, negative values are set to \code{0}.
+A warning is issued when items are dropped. If a matrix or data frame is 
+supplied, only the first column is used.
+
+Degenerate inputs (single point, all-identical values, very small datasets)
+are caught before curve fitting — see \code{\link{cABC_handle_specials}} for
+the full behaviour. Boundary duplicate values that span two classes after
+classification are resolved by \code{\link{cABC_postprocess_classes}}.
+In both cases a warning is issued when a special case is triggered.
+}
+\examples{
+data("SwissInhabitants")
+abc <- cABC_analysis(SwissInhabitants, PlotIt = TRUE)
+
+# Extract the data belonging to each class
+A <- abc$Aind; B <- abc$Bind; C <- abc$Cind
+Agroup <- SwissInhabitants[A]
+Bgroup <- SwissInhabitants[B]
+Cgroup <- SwissInhabitants[C]
+
+
 }
 \author{
-AH (01/2026): Refactor, Group assignment fixed, monotone Spline
+André Himmelspach (01/2026)
 }

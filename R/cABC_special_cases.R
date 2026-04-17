@@ -29,8 +29,6 @@
 #'   value of \code{cABC_analysis}, where only \code{Aind} (and optionally
 #'   \code{Bind}, \code{Cind}) are populated and all curve-related fields are
 #'   \code{NULL} or empty.
-#'
-#' @noRd
 cABC_handle_specials <- function(Data) {
   
   empty_result <- list(
@@ -135,8 +133,6 @@ cABC_handle_specials <- function(Data) {
 #'   \item{Bind}{Sorted integer vector of indices for Class B after deduplication.}
 #'   \item{Cind}{Sorted integer vector of indices for Class C after deduplication.}
 #' }
-#'
-#' @noRd
 cABC_postprocess_classes <- function(Aind, Bind, Cind, Data, sorted_data, ABLimit , BCLimit) {
   # === Handle duplicates across class boundaries ===
   A_values <- Data[Aind]
