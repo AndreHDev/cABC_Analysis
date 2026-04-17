@@ -66,6 +66,7 @@
 #' In both cases a warning is issued when a special case is triggered.
 #' 
 #' @examples
+#' \dontrun{
 #' data("SwissInhabitants")
 #' abc <- cABC_analysis(SwissInhabitants, PlotIt = TRUE)
 #'
@@ -74,6 +75,7 @@
 #' Agroup <- SwissInhabitants[A]
 #' Bgroup <- SwissInhabitants[B]
 #' Cgroup <- SwissInhabitants[C]
+#' }
 #'
 #' @author André Himmelspach (01/2026)
 #' @export
