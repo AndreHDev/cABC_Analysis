@@ -16,7 +16,7 @@ test_that("character input", {
   test2 <- c("10", 5, "x", 3, "0", 0)
   expect_warning(
     res <- cABC_analysis(test2, PlotIt = FALSE),
-    "3 of 6 items are positive"
+    "3 of 6 items are larger then 0"
   )
   expect_setequal(unname(res$Aind), 1)
   expect_setequal(unname(res$Bind), 2)
@@ -35,7 +35,7 @@ test_that("a lot of zeros", {
   )
   
   # Check multiple warnings
-  expect_true(any(grepl("3 of 23 items are positive", warnings, fixed = TRUE)))
+  expect_true(any(grepl("3 of 23 items are larger then 0", warnings, fixed = TRUE)))
   expect_true(any(grepl("duplicate value(s) spanning multiple classes", warnings, fixed = TRUE)))
 })
 
@@ -140,7 +140,7 @@ test_that("input with NA values", {
   test12 <- c(10, NA, 5, 7, NA, 3)
   expect_warning(
     res <- cABC_analysis(test12, PlotIt = FALSE),
-    "4 of 6 items are positive"
+    "4 of 6 items are larger then 0"
   )
   expect_setequal(unname(res$Aind), c(1,4))
   expect_setequal(unname(res$Bind), 3)
@@ -159,7 +159,7 @@ test_that("<= then 3 values with zeros", {
   test14 <- c(0,10,0,4,0,0)
   expect_warning(
     res <- cABC_analysis(test14, PlotIt = FALSE),
-    "2 of 6 items are positive"
+    "2 of 6 items are larger then 0"
   )
 })
 

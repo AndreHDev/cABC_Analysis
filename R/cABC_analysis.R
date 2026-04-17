@@ -105,7 +105,7 @@ cABC_analysis <- function(Data, PlotIt=FALSE, useGGPlot=TRUE) {
   if(n_used == 0) stop("No positive values remain after cleaning")
   
   if(n_used < n_original) {
-    warning(sprintf('Only %d of %d items are largen then 0.', n_used, n_original))
+    warning(sprintf('Only %d of %d items are larger then 0.', n_used, n_original))
   }
   
   # PRESERVE NAMES
