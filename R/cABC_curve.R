@@ -30,8 +30,8 @@ cABC_curve <- function(Data, p) {
   
   # Compute empirical cumulative curve
   sorted <- sort(CleanedData, decreasing = TRUE, na.last = TRUE)
-  Anteil <- sorted
-  y <- cumsum(Anteil) / tail(cumsum(Anteil), 1)
+  portion <- sorted
+  y <- cumsum(portion) / tail(cumsum(portion), 1)
   x <- (1:rows) / rows
   
   # Ensure curve passes through (0,0) and (1,1)
@@ -63,7 +63,7 @@ cABC_curve <- function(Data, p) {
   n <- length(Effort)
   curve_fun <- splinefun(Effort, Yield)
   dABC <- curve_fun((1:n)/n, deriv = 1)
-  
+
   # Return structured result
   list(
     Curve = data.frame(Effort = Effort, Yield = Yield),

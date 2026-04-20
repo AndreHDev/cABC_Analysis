@@ -56,7 +56,7 @@
 #' @details
 #' Data cleaning: Before classification, non-numeric values and
 #' \code{NA}s are coerced to \code{0}, negative values are set to \code{0}.
-#' A warning is issued when items are dropped. If a matrix or data frame is 
+#' A warning is issued when items are converted. If a matrix or data frame is 
 #' supplied, only the first column is used.
 #'
 #' Degenerate inputs (single point, all-identical values, very small datasets)
@@ -143,7 +143,7 @@ cABC_analysis <- function(Data, PlotIt=FALSE, useGGPlot=TRUE) {
   B_idx <- max(B_idx_candidates)
   # If multiple points exist, take the rightmost one
   B_point_candidate <- curve_matrix[B_idx, ]
-  
+
   # Check if Point A is bigger then point B, if not switch them around to keep logic
   ABexchanged <- Effort[B_idx] < Effort[A_idx]
   if(ABexchanged) {
@@ -180,7 +180,7 @@ cABC_analysis <- function(Data, PlotIt=FALSE, useGGPlot=TRUE) {
   # For backward compatibility and edge case handling also calculate:
   ABLimit <- sort(Data, decreasing = T)[round(A_point[1]*length(Data))]
   BCLimit <- sort(Data, decreasing = T)[round(C_point[1]*length(Data))]
-  
+
   # === SPECIAL CASE HANDLING REGARDING SETS ===
   processed <- cABC_postprocess_classes(Aind, Bind, Cind, Data, sorted_data, ABLimit, BCLimit)
   Aind <- processed$Aind
