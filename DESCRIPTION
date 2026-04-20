@@ -25,7 +25,7 @@ Authors@R: c(person(given = "Jorn",
                       role = c("aut","cre"),
                       email = "himmelspach@med.uni-frankfurt.de",
                       comment = c(ORCID = "0009-0009-9857-227X")))
-Date: 2026-01-10
+Date: 2026-04-20
 RoxygenNote: 7.3.3
 NeedsCompilation: no
 Config/testthat/edition: 3
