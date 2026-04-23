@@ -1,8 +1,13 @@
 #' ABC Classification
 #'
-#' Identify the most relevative datapoints by dividing a numeric dataset into 
+#' Identify the most relative data points by dividing a numeric data set into 
 #' three classes A, B, and C, where class A items are the "import few", class C 
-#' items are the "trivial many" with class B items being something in between.
+#' items are the "trivial many" with class B items being something in between, 
+#' resembling the idea of the Pareto Principle.
+#' 
+#' This ABC classification is done using a ABC curve, which plots cumulative 
+#' "Yield" against "Effort", similar to a Lorenz curve. Class borders are then
+#' mathematically defined on that curve.
 #' 
 #' @param Data Positive numeric vector which is not uniformly distributed.
 #'   If matrix or dataframe then the first column will be used.
