@@ -1,15 +1,8 @@
 #' ABC Classification
 #'
-#' Divides a numeric dataset into three classes (A, B, and C) using
-#' ABC analysis. The classification is based on geometric properties
-#' of the ABC curve and identifies regions of high, balanced, and
-#' low efficiency.
-#' Class interpretation:
-#' \tabular{ll}{
-#'   A: \tab Low effort, high yield (Pareto items) \cr
-#'   B: \tab Balanced effort and yield \cr
-#'   C: \tab High effort, low yield (submarginal items)
-#' }
+#' Identify the most relevative datapoints by dividing a numeric dataset into 
+#' three classes A, B, and C, where class A items are the "import few", class C 
+#' items are the "trivial many" with class B items being something in between.
 #' 
 #' @param Data Positive numeric vector which is not uniformly distributed.
 #'   If matrix or dataframe then the first column will be used.
@@ -60,7 +53,7 @@
 #' supplied, only the first column is used.
 #'
 #' Degenerate inputs (single point, all-identical values, very small datasets)
-# are caught before curve fitting, see \code{\link{cABC_handle_specials}} for
+#  are caught before curve fitting, see \code{\link{cABC_handle_specials}} for
 #' the full behaviour. Boundary duplicate values that span two classes after
 #' classification are resolved by \code{\link{cABC_postprocess_classes}}.
 #' In both cases a warning is issued when a special case is triggered.
