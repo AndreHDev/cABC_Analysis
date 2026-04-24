@@ -1,13 +1,15 @@
 #' ABC Classification
 #'
-#' Identify the most relative data points by dividing a numeric data set into 
-#' three classes A, B, and C, where class A items are the "import few", class C 
-#' items are the "trivial many" with class B items being something in between, 
-#' resembling the idea of the Pareto Principle.
-#' 
-#' This ABC classification is done using a ABC curve, which plots cumulative 
-#' "Yield" against "Effort", similar to a Lorenz curve. Class borders are then
-#' mathematically defined on that curve.
+#' Divides a numeric dataset into three classes (A, B, and C) using
+#' ABC analysis. The classification is based on geometric properties
+#' of the ABC curve and identifies regions of high, balanced, and
+#' low efficiency.
+#' Class interpretation:
+#' \tabular{ll}{
+#'   A: \tab Low effort, high yield (Pareto items) \cr
+#'   B: \tab Balanced effort and yield \cr
+#'   C: \tab High effort, low yield (submarginal items)
+#' }
 #' 
 #' @param Data Positive numeric vector which is not uniformly distributed.
 #'   If matrix or dataframe then the first column will be used.
@@ -52,6 +54,19 @@
 #' }
 #' 
 #' @details
+#' Calculation of Boundaries is done on the ABC Curve 
+#' (see \code{\link{cABC_curve}}) with:
+#' 
+#' \tabular{ll}{
+#'   Pareto Point: \tab The point with minimal distance to (0,1) -> A|B Boundary \cr
+#'   Breakeven Point: \tab The point where slope equals to 1 \cr
+#'   Juren Point: \tab The point with minimal distance to (BreakevenPoint_x,1) -> B|C Boundary
+#' }
+#' 
+#' For more calculation details see: Ultsch A, Lotsch J (2015) "Computed ABC Analysis
+#' for rational Selection of most informative Variables in multivariate Data". 
+#' PLoS ONE 10(6): e0129767. <doi:10.1371/journal.pone.0129767>.
+#' 
 #' Data cleaning: Before classification, non-numeric values and
 #' \code{NA}s are coerced to \code{0}, negative values are set to \code{0}.
 #' A warning is issued when items are converted. If a matrix or data frame is 

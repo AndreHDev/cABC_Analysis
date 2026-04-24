@@ -30,8 +30,6 @@
 #' @param defaultAxes Logical. If TRUE (default FALSE), base R axes are drawn by plot().
 #'   If FALSE, custom axes with ticks at 0–1 in steps of 0.1 are drawn.
 #'
-#' @param ResetPlotDefaults Logical. If TRUE (default), the original par()
-#'   settings are restored after plotting.
 #'   
 #' @details
 #' The plot always uses a square coordinate system with both axes ranging from 0 to 1.
@@ -40,9 +38,12 @@
 #' stars and orthogonal boundary lines.
 #' 
 #' @return Base R Plot
-#' @noRd
+#' @keywords internal
 cABC_plot <- function(CurveData, CleanData, Boundaries, Set_counts, x_vals, y_vals, LineType=0, LineWidth=3, ShowUniform=TRUE, 
-                      Plot_title='ABC plot', defaultAxes = FALSE, ResetPlotDefaults=TRUE) {
+                      Plot_title='ABC plot', defaultAxes = FALSE) {
+  # Save old par settings to handle early exits
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
   
   Effort <- CurveData$Curve[, 'Effort']
   Yield <- CurveData$Curve[, 'Yield']
@@ -152,9 +153,6 @@ cABC_plot <- function(CurveData, CleanData, Boundaries, Set_counts, x_vals, y_va
   
   # Coordinate system border
   box(col='grey')
-  
-  # Reset plot if wanted
-  if(ResetPlotDefaults) par(par(no.readonly = TRUE))
   
   invisible(list(ABCx = Effort, ABCy = Yield, x_vals = x_vals, y_vals = y_vals))
 }

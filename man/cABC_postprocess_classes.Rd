@@ -66,3 +66,4 @@ tie-breaking strategy.
 A warning is issued whenever at least one duplicate boundary value is found,
 prompting the user to inspect the data and the ABC plot.
 }
+\keyword{internal}

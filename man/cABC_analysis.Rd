@@ -63,9 +63,22 @@ Class interpretation:
 }
 }
 \details{
+Calculation of Boundaries is done on the ABC Curve 
+(see \code{\link{cABC_curve}}) with:
+
+\tabular{ll}{
+  Pareto Point: \tab The point with minimal distance to (0,1) -> A|B Boundary \cr
+  Breakeven Point: \tab The point where slope equals to 1 \cr
+  Juren Point: \tab The point with minimal distance to (BreakevenPoint_x,1) -> B|C Boundary
+}
+
+For more calculation details see: Ultsch A, Lotsch J (2015) "Computed ABC Analysis
+for rational Selection of most informative Variables in multivariate Data". 
+PLoS ONE 10(6): e0129767. <doi:10.1371/journal.pone.0129767>.
+
 Data cleaning: Before classification, non-numeric values and
 \code{NA}s are coerced to \code{0}, negative values are set to \code{0}.
-A warning is issued when items are dropped. If a matrix or data frame is 
+A warning is issued when items are converted. If a matrix or data frame is 
 supplied, only the first column is used.
 
 Degenerate inputs (single point, all-identical values, very small datasets)

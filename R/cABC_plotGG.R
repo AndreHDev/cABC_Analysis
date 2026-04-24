@@ -1,4 +1,6 @@
-#' cABC_plotGG - ggplot2 version matching base R cABC_plot
+#' cABC_plotGG
+#' 
+#' ggplot2 version matching base R cABC_plot
 #'
 #' @importFrom grDevices colors
 #' @param CurveData Data about the ABC Curve as returned by ABC_curve
@@ -30,7 +32,7 @@
 #' Shows individual points if they are less then 20.
 #' 
 #' @return ggplot2 object
-#' @noRd
+#' @keywords internal
 cABC_plotGG <- function(CurveData, CleanData, Boundaries, Set_counts, x_vals, y_vals,
                         LineWidth = 1.25, ShowUniform = TRUE, Plot_title = 'ABC plot') {
   

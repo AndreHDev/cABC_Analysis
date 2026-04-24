@@ -1,6 +1,8 @@
 #' cABC Curve Computation
 #'
-#' Computes ABC curve (cumulative effort vs yield) with hyman spline interpolation and derivatives.
+#' Computes cumulative percentage of largest data (effort) 
+#' and cumulative percentages of sum of largest Data (yield) with monotone hyman 
+#' spline interpolation used to generate in between points.
 #' 
 #' @importFrom stats spline splinefun
 #' @importFrom utils head tail
@@ -12,7 +14,7 @@
 #'   Curve: Data frame with Effort (x) and Yield (y) of interpolated curve
 #'   Slope: Data frame with p (x-values) and cABC (first derivative)
 #' 
-#' @noRd
+#' @keywords internal
 cABC_curve <- function(Data, p) {
   
   # Data cleaned before
