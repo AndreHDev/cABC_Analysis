@@ -3,7 +3,7 @@ Type: Package
 Title: Computed ABC Analysis
 Version: 1.0
 Description: Identify the most relative data points by dividing a numeric data set into three classes A, B, and C, where class A items are the "import few", class C items are the "trivial many" with class B items being something in between, resembling the idea of the Pareto principle.
-This ABC classification is done using an ABC curve, which plots cumulative "Yield" against "Effort", similar to a Lorenz curve. Class borders are then precisely mathematically defined on that curve, aiding in interpretation. Based on: Ultsch A, Lotsch J (2015) "Computed ABC Analysis for rational Selection of most informative Variables in multivariate Data". PLoS ONE 10(6): e0129767. <doi:10.1371journal.pone.0129767>.
+ This ABC classification is done using an ABC curve, which plots cumulative "Yield" against "Effort", similar to a Lorenz curve. Class borders are then precisely mathematically defined on that curve, aiding in interpretation. Based on: Ultsch A, Lotsch J (2015) "Computed ABC Analysis for rational Selection of most informative Variables in multivariate Data". PLoS ONE 10(6): e0129767. <doi:10.1371journal.pone.0129767>.
 Depends: R (>= 2.10.0)
 Imports: ggplot2, plotrix, grDevices, graphics, stats, utils
 LazyData: true

@@ -40,3 +40,4 @@ The following special cases are handled:
     so that \code{cABC_analysis} proceeds with the standard algorithm.}
 }
 }
+\keyword{internal}
