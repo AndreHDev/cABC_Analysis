@@ -82,7 +82,8 @@ A warning is issued when items are converted. If a matrix or data frame is
 supplied, only the first column is used.
 
 Degenerate inputs (single point, all-identical values, very small datasets)
-the full behaviour. Boundary duplicate values that span two classes after
+are caught before curve fitting, see \code{\link{cABC_handle_specials}} for
+the full behavior. Boundary duplicate values that span two classes after
 classification are resolved by \code{\link{cABC_postprocess_classes}}.
 In both cases a warning is issued when a special case is triggered.
 }
