@@ -1,17 +1,28 @@
 cABCanalysis
 =============
 
-R and python implementation of the computed ABC Analysis for rational selection of the most informative variables. Features caclulation using monotonic splines, edge-case handling (see details [here](https://github.com/AndreHDev/cABC_Analysis/blob/main/R/cABC_special_cases.R)), base R plots as well as GGPLots.
+R and python implementation of the computed ABC Analysis for rational selection of the most informative variables. Features calculation using monotonic splines, edge-case handling (see details [here](https://github.com/AndreHDev/cABC_Analysis/blob/main/R/cABC_special_cases.R)), base R plots as well as GGPLots.
 
 <img width="1072" height="602" alt="cABCExample" src="https://github.com/user-attachments/assets/9612fb9b-6ba9-487d-8235-f6dfb4c6791f" />
 
 Install R package
 -----------------
-From the cloned repository root, install the package from the current directory:
+The package can be installed from CRAN:
 
 ```r
-install.packages("path/to/repo", repos = NULL, type = "source")
-library(cABCanalysis)
+install.packages("cABCanalysis")
+```
+
+from this github repository using the remotes package:
+
+```r
+remotes::install_github("AndreHDev/cABC_Analysis")
+```
+
+or manually by cloning this repository and running
+
+```r
+devtools::install("path/to/cABC_Analysis")
 ```
 
 Reference
