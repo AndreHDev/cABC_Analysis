@@ -189,7 +189,7 @@ cABC_analysis <- function(Data, PlotIt=FALSE, useGGPlot=TRUE) {
   Aind <- sorted_indices[A_mask]
   Bind <- sorted_indices[C_mask & !A_mask]
   Cind <- sorted_indices[!C_mask]
-  
+
   # For backward compatibility and edge case handling also calculate:
   ABLimit <- sort(Data, decreasing = T)[round(A_point[1]*length(Data))]
   BCLimit <- sort(Data, decreasing = T)[round(C_point[1]*length(Data))]

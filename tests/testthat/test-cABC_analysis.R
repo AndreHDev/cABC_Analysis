@@ -170,3 +170,21 @@ test_that("duplicate value spanning all three sets", {
     "duplicate value\\(s\\) spanning multiple classes"
   )
 })
+
+test_that("same value in three classes", {
+  # Recreating the specific data object
+  test16 <- c(
+    Pressure = 0.18, 
+    VonFrey  = 0.11, 
+    Heat     = 0.11, 
+    Current  = 0.11, 
+    Cold     = 0.06
+  )
+  
+  # We expect a warning because 0.11 is repeated 3 times 
+  # in a very small dataset, likely crossing class boundaries.
+  expect_warning(
+    res <- cABC_analysis(test16, PlotIt = FALSE),
+    "duplicate value\\(s\\) spanning multiple classes"
+  )
+})

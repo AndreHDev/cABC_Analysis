@@ -159,7 +159,7 @@ cABC_postprocess_classes <- function(Aind, Bind, Cind, Data, sorted_data, ABLimi
     tapply(class, value, function(x) length(unique(x)) > 1)
   )
   
-  duplicate_values <- names(duplicate_values)[duplicate_values]
+  duplicate_values <- as.numeric(names(duplicate_values)[duplicate_values])
   
   if (length(duplicate_values) > 0) {
     warning(sprintf("Found %d duplicate value(s) spanning multiple classes.
