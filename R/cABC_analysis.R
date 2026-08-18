@@ -19,6 +19,15 @@
 #' @param useGGPlot Logical, default \code{TRUE}. If \code{TRUE} a ggplot2
 #'   plot is produced; if \code{FALSE} a base-R plot is produced. Only
 #'   relevant when \code{PlotIt = TRUE}.
+#'   
+#' @param plotArgs \code{NULL} (default), or a named list of cosmetic
+#'   plot options controlling colors, line width, title, and more. 
+#'   See \code{\link{cABC_plot_style}} for the full list of supported options. 
+#'   Only used when \code{PlotIt = TRUE} and \code{useGGPlot = TRUE}.
+#'   Can be build with \code{\link{cABC_plot_style}} for autocomplete and
+#'   validation, e.g. \code{cABC_plot_style(LineWidth = 2, CurveColor =
+#'   "darkred")}, or passed as a raw named list with the same element names.
+#'   Any option not specified falls back to the package default.
 #'
 #' @return A list containing:
 #' \describe{
@@ -43,6 +52,7 @@
 #'   \item{BlimitIndInInterpolation}{Index of the C boundary in the
 #'     interpolated \code{[p, ABC]} curve. \code{NULL} in special-case
 #'     returns.}
+#'   \item{Plot}{Generated plot object}
 #'   \item{p}{Numeric vector of effort values (x-axis) of the interpolation
 #'     curve. \code{NULL} in special-case returns.}
 #'   \item{ABC}{Numeric vector of yield values (y-axis) of the interpolation
@@ -90,7 +100,7 @@
 #'
 #' @author André Himmelspach (01/2026)
 #' @export
-cABC_analysis <- function(Data, PlotIt=FALSE, useGGPlot=TRUE) {
+cABC_analysis <- function(Data, PlotIt = FALSE, useGGPlot = TRUE, plotArgs = NULL) {
   
   # === DATA CLEANING WITH NAME PRESERVATION ===
   Data_orig_names <- names(Data)
@@ -216,15 +226,15 @@ cABC_analysis <- function(Data, PlotIt=FALSE, useGGPlot=TRUE) {
   names(Cind) <- names(Data)[Cind]
   
   # === PLOT (if needed) ===
+  abc_plot <- NULL
   if(PlotIt) {
     bounds <- list(A = A_point, B = B_point, C = C_point)
     set_counts <- list(nA = nA, nB = nB, nC = nC)
     if(useGGPlot){
-      abc <- cABC_plotGG(ABCcurvedata, Data, Boundaries = bounds, set_counts, x_vals, y_vals,
-                         ShowUniform=TRUE)
-      print(abc)
+      abc_plot <- cABC_plotGG(ABCcurvedata, Data, Boundaries = bounds, set_counts, x_vals, y_vals,
+                              plot_args = plotArgs)
     }else{
-      abc <- cABC_plot(ABCcurvedata, Data, Boundaries = bounds, set_counts, x_vals, y_vals,
+      abc_plot <- cABC_plot(ABCcurvedata, Data, Boundaries = bounds, set_counts, x_vals, y_vals,
                        ShowUniform=TRUE)
     }
   }
@@ -237,6 +247,7 @@ cABC_analysis <- function(Data, PlotIt=FALSE, useGGPlot=TRUE) {
     smallestBData = Yield[C_idx],
     AlimitIndInInterpolation = if(ABexchanged) B_idx else A_idx,
     BlimitIndInInterpolation = C_idx,
+    Plot = abc_plot,
     p = Effort,
     ABC = Yield,
     ABLimit = ABLimit, 
