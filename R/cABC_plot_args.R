@@ -24,6 +24,9 @@ cABC_default_plot_args <- function() {
     BoundaryLineColor = 'red',
     LabelColor        = 'red',
     LegendTextSize    = 4,
+    LegendX           = 0.80,
+    LegendY           = NULL,
+    LegendSpacing     = 0.05,
     Theme = ggplot2::theme_light() +
       ggplot2::theme(
         panel.grid = ggplot2::element_blank(),

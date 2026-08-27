@@ -11,9 +11,7 @@ cABC_plotGG(
   Set_counts,
   x_vals,
   y_vals,
-  LineWidth = 1.25,
-  ShowUniform = TRUE,
-  Plot_title = "ABC plot"
+  plot_args = cABC_resolve_plot_args(NULL)
 )
 }
 \arguments{
@@ -31,12 +29,8 @@ number of observations in sets A, B, and C.}
 
 \item{y_vals}{Numeric vector of y coordinates of original data points.}
 
-\item{LineWidth}{Numeric. Line width for the ABC curve. Default is 3.}
-
-\item{ShowUniform}{Logical. If TRUE (default), the uniform reference curve is
-drawn in addition to the identity and ABC curves.}
-
-\item{Plot_title}{Character string. Title of the plot. Default is "ABC plot".}
+\item{plot_args}{A list of visualization arguments for the plot as defined 
+in \code{\link{cABC_default_plot_args}}.}
 }
 \value{
 ggplot2 object
