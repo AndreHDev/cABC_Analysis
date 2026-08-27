@@ -90,7 +90,10 @@
 #' 
 #' @examples
 #' data("SwissInhabitants")
-#' abc <- cABC_analysis(SwissInhabitants, PlotIt = TRUE)
+#' # Set plotting options
+#' opts <- cABC_plot_style(LineWidth = 1.5, CurveColor = "darkblue")
+#' 
+#' abc <- cABC_analysis(SwissInhabitants, PlotIt = TRUE, plotArgs = opts)
 #'
 #' # Extract the data belonging to each class
 #' A <- abc$Aind; B <- abc$Bind; C <- abc$Cind
@@ -130,7 +133,7 @@ cABC_analysis <- function(Data, PlotIt = FALSE, useGGPlot = TRUE, plotArgs = NUL
     warning(sprintf('Only %d of %d items are larger then 0.', n_used, n_original))
   }
   
-  # PRESERVE NAMES
+  # Preserve names
   if(is.null(Data_orig_names) || length(Data_orig_names) != length(Data)) {
     Data_orig_names <- paste0("Item", seq_along(Data))
   }

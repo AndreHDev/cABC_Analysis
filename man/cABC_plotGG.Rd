@@ -11,9 +11,7 @@ cABC_plotGG(
   Set_counts,
   x_vals,
   y_vals,
-  LineWidth = 1.25,
-  ShowUniform = TRUE,
-  Plot_title = "ABC plot"
+  plot_args = cABC_resolve_plot_args(NULL)
 )
 }
 \arguments{

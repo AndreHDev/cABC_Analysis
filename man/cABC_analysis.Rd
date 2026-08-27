@@ -4,7 +4,7 @@
 \alias{cABC_analysis}
 \title{ABC Classification}
 \usage{
-cABC_analysis(Data, PlotIt = FALSE, useGGPlot = TRUE)
+cABC_analysis(Data, PlotIt = FALSE, useGGPlot = TRUE, plotArgs = NULL)
 }
 \arguments{
 \item{Data}{Positive numeric vector which is not uniformly distributed.
@@ -15,6 +15,15 @@ If matrix or dataframe then the first column will be used.}
 \item{useGGPlot}{Logical, default \code{TRUE}. If \code{TRUE} a ggplot2
 plot is produced; if \code{FALSE} a base-R plot is produced. Only
 relevant when \code{PlotIt = TRUE}.}
+
+\item{plotArgs}{\code{NULL} (default), or a named list of cosmetic
+plot options controlling colors, line width, title, and more. 
+See \code{\link{cABC_plot_style}} for the full list of supported options. 
+Only used when \code{PlotIt = TRUE} and \code{useGGPlot = TRUE}.
+Can be build with \code{\link{cABC_plot_style}} for autocomplete and
+validation, e.g. \code{cABC_plot_style(LineWidth = 2, CurveColor =
+"darkred")}, or passed as a raw named list with the same element names.
+Any option not specified falls back to the package default.}
 }
 \value{
 A list containing:
@@ -40,6 +49,7 @@ A list containing:
   \item{BlimitIndInInterpolation}{Index of the C boundary in the
     interpolated \code{[p, ABC]} curve. \code{NULL} in special-case
     returns.}
+  \item{Plot}{Generated plot object}
   \item{p}{Numeric vector of effort values (x-axis) of the interpolation
     curve. \code{NULL} in special-case returns.}
   \item{ABC}{Numeric vector of yield values (y-axis) of the interpolation
@@ -89,7 +99,10 @@ In both cases a warning is issued when a special case is triggered.
 }
 \examples{
 data("SwissInhabitants")
-abc <- cABC_analysis(SwissInhabitants, PlotIt = TRUE)
+# Set plotting options
+opts <- cABC_plot_style(LineWidth = 1.5, CurveColor = "darkblue")
+
+abc <- cABC_analysis(SwissInhabitants, PlotIt = TRUE, plotArgs = opts)
 
 # Extract the data belonging to each class
 A <- abc$Aind; B <- abc$Bind; C <- abc$Cind

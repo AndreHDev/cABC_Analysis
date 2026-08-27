@@ -54,6 +54,9 @@ cABC_plotGG <- function(CurveData, CleanData, Boundaries, Set_counts, x_vals, y_
   BoundaryLineColor <- plot_args$BoundaryLineColor
   LabelColor        <- plot_args$LabelColor
   LegendTextSize    <- plot_args$LegendTextSize
+  LegendX           <- plot_args$LegendX
+  LegendY           <- plot_args$LegendY
+  LegendSpacing     <- plot_args$LegendSpacing
   Theme             <- plot_args$Theme
   
   Effort <- CurveData$Curve[, 'Effort']
@@ -182,17 +185,15 @@ cABC_plotGG <- function(CurveData, CleanData, Boundaries, Set_counts, x_vals, y_
   }
 
   
-  # Legend position
-  legend_y_start <- if(((Boundaries$A[1] + Boundaries$C[1]) / 2 + 
-                        max(abs(Boundaries$A[1] - Boundaries$C[1]), 0.1) + 0.02) < 0.8) {
-    0.3
-  } else {
-    0.5
+  # Calculate legend position dynamically if not given
+  if (is.null(LegendY)) {
+    LegendY <- if (((Boundaries$A[1] + Boundaries$C[1]) / 2 +
+                           max(abs(Boundaries$A[1] - Boundaries$C[1]), 0.1) + 0.02) < 0.8) {
+      0.3
+    } else {
+      0.5
+    }
   }
-  
-  # Legend annotations
-  legend_spacing <- 0.05
-  legend_x <- 0.80
   
   legend_entries <- list(
     list(show = ShowBoundary, label = 'set limits', color = BoundaryLineColor),
@@ -204,7 +205,7 @@ cABC_plotGG <- function(CurveData, CleanData, Boundaries, Set_counts, x_vals, y_
   
   for (i in seq_along(legend_entries)) {
     e <- legend_entries[[i]]
-    p <- p + ggplot2::annotate("text", x = legend_x, y = legend_y_start - (i - 1) * legend_spacing,
+    p <- p + ggplot2::annotate("text", x = LegendX, y = LegendY - (i - 1) * LegendSpacing,
                                label = e$label, color = e$color, size = LegendTextSize,
                                hjust = 0, fontface = 'italic')
   }
